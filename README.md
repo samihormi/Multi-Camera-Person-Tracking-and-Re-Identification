@@ -40,12 +40,11 @@ conda install pytorch torchvision cudatoolkit -c pytorch
 ```
 ## Convert models
 - Download the YOLO models for [YOLO_v3](https://drive.google.com/file/d/18fmQMegNsAzPte7tJeCxwf1iE8JUTQhQ/view?usp=sharing) and [YOLO_v4](https://drive.google.com/file/d/1w9furPagm3KytRW2uNooLcBoiYWDwbop/view?usp=sharing) and add them to /model_data/weights/
-
-YOLO_v3
+* YOLO_v3
 ```python
 python convert_y3.py model_data\weights\yolov3.weights model_data\models\yolov3.h5
 ```
-YOLO_v4
+* YOLO_v4
 ```python
 python convert_y4.py model_data\weights\yolov4.weights model_data\models\yolov4.h5
 ```
