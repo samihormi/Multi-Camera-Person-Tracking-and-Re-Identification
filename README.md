@@ -1,4 +1,4 @@
-# _Multi-Camera Human Tracking and Re-Identification_ (using video)
+# _Multi-Camera Person Tracking and Re-Identification_ (using video)
 Simple model to _"Detect/Track"_ and _"Re-identify"_ individuals in different cameras/videos.  
 
 <img align="right" img src="assets/2.gif" width="399" />  <img align="left" img src="assets/1.gif" width="399" />
@@ -22,11 +22,11 @@ The tracking can be completed using YOLO_v3 or YOLO_v4 and ReID relies on Kaiyan
 
  - Clone the repository
 ```python
-git clone https://github.com/samihormi/Multi-Camera-Human-Tracking-and-Re-Identification
+git clone https://github.com/samihormi/Multi-Camera-Person-Tracking-and-Re-Identification
 ```
 - Create a project environment
 ```python
-cd Multi-Camera-Human-Tracking-and-Re-Identification
+cd Multi-Camera-Person-Tracking-and-Re-Identification
 conda create --name py37 python=3.7
 conda activate py37
 ```
