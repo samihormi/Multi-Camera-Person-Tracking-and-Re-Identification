@@ -14,7 +14,7 @@ Simple model to track and re-identify individuals in different cameras/videos.
 This project aims to track people in different videos accounting for different angles. 
 
 
-The framework used to accomplish this task relies on MOT and ReID to track and re-identify ID's of humans, respectively.
+The framework used to accomplish this task relies on MOT and ReID to track and re-identify ID's of humans, respectively.  
 The tracking can be completed using YOLO_v3 or YOLO_v4 and ReID relies on KaiyangZhou's Torchreid library.
   
 ## Installation  
