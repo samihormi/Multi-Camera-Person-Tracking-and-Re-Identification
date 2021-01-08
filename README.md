@@ -59,7 +59,7 @@ Download either one of the following Torchreid models [1](https://drive.google.c
 ## Demo 
  
 You can try out your own videos by running demo.py.  
-Under the directory \videos\output, the program will generate a video of the tracking, as well as a video of the tracking and ReID. (as can be seen in the example above)
+Under the directory \videos\output, the program will generate a video of the tracking, as well as a video of the tracking and ReID. (as can be seen in the example above)  
 You should specify the path of the videos and the version of YOLO you would like to use (v3 or v4) 
 
 ```python
