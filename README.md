@@ -1,8 +1,9 @@
 # Multi-Camera Human Tracking and Re-Identification (using video)
 Simple model to track and re-identify individuals in different cameras/videos.  
+
 <img align="right" img src="assets/1.gif" width="456"/>  <img align="left" img src="assets/2.gif" width="456"/>
 <p align="center">
-  <img src="assets/arrow.png" width="600"/>
+  <img src="assets/arrow.png" width="500"/>
 </p>
 <p align="center">
   <img src="assets/3.gif" width="600"/>
