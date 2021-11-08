@@ -4,7 +4,7 @@ Simple model to _"Detect/Track"_ and _"Re-identify"_ individuals in different ca
 
 <img align="right" img src="assets/2.gif" width="390" />  <img align="left" img src="assets/1.gif" width="390" />
 <p align="center">
-  <img src="assets/arrow.png" width="350"/>
+  <img src="assets/arrow.png" width="375"/>
 </p>
 <p align="center">
   <img src="assets/3.gif" width="500"/>
