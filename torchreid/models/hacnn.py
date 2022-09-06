@@ -8,7 +8,7 @@ __all__ = ['HACNN']
 
 class ConvBlock(nn.Module):
     """Basic convolutional block.
-    
+
     convolution + batch normalization + relu.
 
     Args:
@@ -132,9 +132,9 @@ class ChannelAttn(nn.Module):
 
 class SoftAttn(nn.Module):
     """Soft Attention (Sec. 3.1.I)
-    
+
     Aim: Spatial Attention + Channel Attention
-    
+
     Output: attention maps with shape identical to input.
     """
 
@@ -286,7 +286,7 @@ class HACNN(nn.Module):
 
     def stn(self, x, theta):
         """Performs spatial transform
-        
+
         x: (batch, channel, height, width)
         theta: (batch, 2, 3)
         """

@@ -15,7 +15,7 @@ class PRID(ImageDataset):
         Classification. SCIA 2011.
 
     URL: `<https://www.tugraz.at/institute/icg/research/team-bischof/lrs/downloads/PRID11/>`_
-    
+
     Dataset statistics:
         - Two views.
         - View A captures 385 identities.

@@ -190,10 +190,10 @@ def open_specified_layers(model, open_layers):
 
     Examples::
         >>> from torchreid.utils import open_specified_layers
-        >>> # Only model.classifier will be updated.
+        >>>  # Only model.classifier will be updated.
         >>> open_layers = 'classifier'
         >>> open_specified_layers(model, open_layers)
-        >>> # Only model.fc and model.classifier will be updated.
+        >>>  # Only model.fc and model.classifier will be updated.
         >>> open_layers = ['fc', 'classifier']
         >>> open_specified_layers(model, open_layers)
     """
@@ -232,7 +232,7 @@ def count_num_param(model):
         >>> model_size = count_num_param(model)
 
     .. warning::
-        
+
         This method is deprecated in favor of
         ``torchreid.utils.compute_model_complexity``.
     """
@@ -281,7 +281,7 @@ def load_pretrained_weights(model, weight_path):
 
     for k, v in state_dict.items():
         if k.startswith('module.'):
-            k = k[7:] # discard module.
+            k = k[7:]  # discard module.
 
         if k in model_dict and model_dict[k].size() == v.size():
             new_state_dict[k] = v

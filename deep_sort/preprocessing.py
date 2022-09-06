@@ -96,15 +96,15 @@ def delete_overlap_box(boxes, max_bbox_overlap, scores=None):
         # i = idxs[last]
         # pick.append(i)
 
-        xx1 = np.maximum(x1[idxs[i]], x1[idxs[i+1:]])
-        yy1 = np.maximum(y1[idxs[i]], y1[idxs[i+1:]])
-        xx2 = np.minimum(x2[idxs[i]], x2[idxs[i+1:]])
-        yy2 = np.minimum(y2[idxs[i]], y2[idxs[i+1:]])
+        xx1 = np.maximum(x1[idxs[i]], x1[idxs[i + 1:]])
+        yy1 = np.maximum(y1[idxs[i]], y1[idxs[i + 1:]])
+        xx2 = np.minimum(x2[idxs[i]], x2[idxs[i + 1:]])
+        yy2 = np.minimum(y2[idxs[i]], y2[idxs[i + 1:]])
 
         w = np.maximum(0, xx2 - xx1 + 1)
         h = np.maximum(0, yy2 - yy1 + 1)
 
-        overlap = (w * h) / area[idxs[i+1:]]
+        overlap = (w * h) / area[idxs[i + 1:]]
         if len(np.where(overlap > max_bbox_overlap)[0]) > 0:
-            deleted += list(idxs[np.concatenate(([i],np.where(overlap > max_bbox_overlap)[0]+i+1))])
-    return list(set(idxs) - set(deleted))    
+            deleted += list(idxs[np.concatenate(([i], np.where(overlap > max_bbox_overlap)[0] + i + 1))])
+    return list(set(idxs) - set(deleted))

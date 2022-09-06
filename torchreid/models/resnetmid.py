@@ -107,7 +107,7 @@ class Bottleneck(nn.Module):
 
 class ResNetMid(nn.Module):
     """Residual network + mid-level features.
-    
+
     Reference:
         Yu et al. The Devil is in the Middle: Exploiting Mid-level Representations for
         Cross-Domain Instance Matching. arXiv:1711.08106.
@@ -267,7 +267,7 @@ class ResNetMid(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

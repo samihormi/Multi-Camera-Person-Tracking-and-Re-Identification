@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+# ! /usr/bin/env python
 """
 Reads Darknet config and weights and creates Keras model with TF backend.
 
@@ -30,6 +30,7 @@ parser.add_argument(
     help='Plot generated Keras model and save as image.',
     action='store_true')
 
+
 def unique_config_sections(config_file):
     """Convert all config sections to have unique names.
 
@@ -47,6 +48,7 @@ def unique_config_sections(config_file):
             output_stream.write(line)
     output_stream.seek(0)
     return output_stream
+
 
 # %%
 def _main(args):
@@ -67,7 +69,7 @@ def _main(args):
     weights_file = open(weights_path, 'rb')
     major, minor, revision = np.ndarray(
         shape=(3, ), dtype='int32', buffer=weights_file.read(12))
-    if (major*10+minor)>=2 and major<1000 and minor<1000:
+    if (major * 10 + minor) >= 2 and major < 1000 and minor < 1000:
         seen = np.ndarray(shape=(1,), dtype='int64', buffer=weights_file.read(8))
     else:
         seen = np.ndarray(shape=(1,), dtype='int32', buffer=weights_file.read(4))
@@ -148,7 +150,7 @@ def _main(args):
 
             # Handle activation.
             act_fn = None
-            print('yyy',activation)
+            print('yyy', activation)
             if activation == 'leaky':
                 pass  # Add advanced activation later.
             elif activation != 'linear':
@@ -157,9 +159,9 @@ def _main(args):
                         activation, section))
 
             # Create Conv2D layer
-            if stride>1:
+            if stride > 1:
                 # Darknet uses left and top padding instead of 'same' mode
-                prev_layer = ZeroPadding2D(((1,0),(1,0)))(prev_layer)
+                prev_layer = ZeroPadding2D(((1, 0), (1, 0)))(prev_layer)
             conv_layer = (Conv2D(
                 filters, (size, size),
                 strides=(stride, stride),
@@ -200,7 +202,7 @@ def _main(args):
             assert activation == 'linear', 'Only linear activation supported.'
             all_layers.append(Add()([all_layers[index], prev_layer]))
             prev_layer = all_layers[-1]
-        
+
         elif section.startswith('upsample'):
             stride = int(cfg_parser[section]['stride'])
             assert stride == 2, 'Only stride=2 supported.'

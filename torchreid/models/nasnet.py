@@ -26,11 +26,10 @@ Code imported from https://github.com/Cadene/pretrained-models.pytorch
 pretrained_settings = {
     'nasnetamobile': {
         'imagenet': {
-            # 'url': 'https://github.com/veronikayurchuk/pretrained-models.pytorch/releases/download/v1.0/nasnetmobile-7e03cead.pth.tar',
             'url':
             'http://data.lip6.fr/cadene/pretrainedmodels/nasnetamobile-7e03cead.pth',
             'input_space': 'RGB',
-            'input_size': [3, 224, 224], # resize 256
+            'input_size': [3, 224, 224],  # resize 256
             'input_range': [0, 1],
             'mean': [0.5, 0.5, 0.5],
             'std': [0.5, 0.5, 0.5],
@@ -39,7 +38,7 @@ pretrained_settings = {
         # 'imagenet+background': {
         #     # 'url': 'http://data.lip6.fr/cadene/pretrainedmodels/nasnetalarge-a1897284.pth',
         #     'input_space': 'RGB',
-        #     'input_size': [3, 224, 224], # resize 256
+        #     'input_size': [3, 224, 224],  # resize 256
         #     'input_range': [0, 1],
         #     'mean': [0.5, 0.5, 0.5],
         #     'std': [0.5, 0.5, 0.5],
@@ -945,92 +944,92 @@ class NASNetAMobile(nn.Module):
 
         self.cell_0 = FirstCell(
             in_channels_left=filters,
-            out_channels_left=filters // 2, # 1, 0.5
+            out_channels_left=filters // 2,  # 1, 0.5
             in_channels_right=2 * filters,
             out_channels_right=filters
-        ) # 2, 1
+        )  # 2, 1
         self.cell_1 = NormalCell(
             in_channels_left=2 * filters,
-            out_channels_left=filters, # 2, 1
+            out_channels_left=filters,  # 2, 1
             in_channels_right=6 * filters,
             out_channels_right=filters
-        ) # 6, 1
+        )  # 6, 1
         self.cell_2 = NormalCell(
             in_channels_left=6 * filters,
-            out_channels_left=filters, # 6, 1
+            out_channels_left=filters,  # 6, 1
             in_channels_right=6 * filters,
             out_channels_right=filters
-        ) # 6, 1
+        )  # 6, 1
         self.cell_3 = NormalCell(
             in_channels_left=6 * filters,
-            out_channels_left=filters, # 6, 1
+            out_channels_left=filters,  # 6, 1
             in_channels_right=6 * filters,
             out_channels_right=filters
-        ) # 6, 1
+        )  # 6, 1
 
         self.reduction_cell_0 = ReductionCell0(
             in_channels_left=6 * filters,
-            out_channels_left=2 * filters, # 6, 2
+            out_channels_left=2 * filters,  # 6, 2
             in_channels_right=6 * filters,
             out_channels_right=2 * filters
-        ) # 6, 2
+        )  # 6, 2
 
         self.cell_6 = FirstCell(
             in_channels_left=6 * filters,
-            out_channels_left=filters, # 6, 1
+            out_channels_left=filters,  # 6, 1
             in_channels_right=8 * filters,
             out_channels_right=2 * filters
-        ) # 8, 2
+        )  # 8, 2
         self.cell_7 = NormalCell(
             in_channels_left=8 * filters,
-            out_channels_left=2 * filters, # 8, 2
+            out_channels_left=2 * filters,  # 8, 2
             in_channels_right=12 * filters,
             out_channels_right=2 * filters
-        ) # 12, 2
+        )  # 12, 2
         self.cell_8 = NormalCell(
             in_channels_left=12 * filters,
-            out_channels_left=2 * filters, # 12, 2
+            out_channels_left=2 * filters,  # 12, 2
             in_channels_right=12 * filters,
             out_channels_right=2 * filters
-        ) # 12, 2
+        )  # 12, 2
         self.cell_9 = NormalCell(
             in_channels_left=12 * filters,
-            out_channels_left=2 * filters, # 12, 2
+            out_channels_left=2 * filters,  # 12, 2
             in_channels_right=12 * filters,
             out_channels_right=2 * filters
-        ) # 12, 2
+        )  # 12, 2
 
         self.reduction_cell_1 = ReductionCell1(
             in_channels_left=12 * filters,
-            out_channels_left=4 * filters, # 12, 4
+            out_channels_left=4 * filters,  # 12, 4
             in_channels_right=12 * filters,
             out_channels_right=4 * filters
-        ) # 12, 4
+        )  # 12, 4
 
         self.cell_12 = FirstCell(
             in_channels_left=12 * filters,
-            out_channels_left=2 * filters, # 12, 2
+            out_channels_left=2 * filters,  # 12, 2
             in_channels_right=16 * filters,
             out_channels_right=4 * filters
-        ) # 16, 4
+        )  # 16, 4
         self.cell_13 = NormalCell(
             in_channels_left=16 * filters,
-            out_channels_left=4 * filters, # 16, 4
+            out_channels_left=4 * filters,  # 16, 4
             in_channels_right=24 * filters,
             out_channels_right=4 * filters
-        ) # 24, 4
+        )  # 24, 4
         self.cell_14 = NormalCell(
             in_channels_left=24 * filters,
-            out_channels_left=4 * filters, # 24, 4
+            out_channels_left=4 * filters,  # 24, 4
             in_channels_right=24 * filters,
             out_channels_right=4 * filters
-        ) # 24, 4
+        )  # 24, 4
         self.cell_15 = NormalCell(
             in_channels_left=24 * filters,
-            out_channels_left=4 * filters, # 24, 4
+            out_channels_left=4 * filters,  # 24, 4
             in_channels_right=24 * filters,
             out_channels_right=4 * filters
-        ) # 24, 4
+        )  # 24, 4
 
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout()
@@ -1085,7 +1084,7 @@ class NASNetAMobile(nn.Module):
         x_cell_15 = F.avg_pool2d(
             x_cell_15,
             x_cell_15.size()[2:]
-        ) # global average pool
+        )  # global average pool
         x_cell_15 = x_cell_15.view(x_cell_15.size(0), -1)
         x_cell_15 = self.dropout(x_cell_15)
 
@@ -1109,7 +1108,7 @@ class NASNetAMobile(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

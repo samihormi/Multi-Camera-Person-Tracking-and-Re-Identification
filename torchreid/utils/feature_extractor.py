@@ -53,7 +53,7 @@ class FeatureExtractor(object):
         ]
 
         features = extractor(image_list)
-        print(features.shape) # output (5, 512)
+        print(features.shape)  # output (5, 512)
     """
 
     def __init__(

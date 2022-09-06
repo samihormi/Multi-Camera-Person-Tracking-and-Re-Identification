@@ -245,7 +245,7 @@ class SEResNeXtBottleneck(Bottleneck):
 
 class SENet(nn.Module):
     """Squeeze-and-excitation network.
-    
+
     Reference:
         Hu et al. Squeeze-and-Excitation Networks. CVPR 2018.
 
@@ -513,7 +513,6 @@ class SENet(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

@@ -15,7 +15,7 @@ class PRID2011(VideoDataset):
         Discriminative Classification. SCIA 2011.
 
     URL: `<https://www.tugraz.at/institute/icg/research/team-bischof/lrs/downloads/PRID11/>`_
-    
+
     Dataset statistics:
         - identities: 200.
         - tracklets: 400.

@@ -45,11 +45,11 @@ class BasicConv2d(nn.Module):
             stride=stride,
             padding=padding,
             bias=False
-        ) # verify bias false
+        )  # verify bias false
         self.bn = nn.BatchNorm2d(
             out_planes,
-            eps=0.001, # value found in tensorflow
-            momentum=0.1, # default pytorch value
+            eps=0.001,  # value found in tensorflow
+            momentum=0.1,  # default pytorch value
             affine=True
         )
         self.relu = nn.ReLU(inplace=True)
@@ -323,7 +323,7 @@ class InceptionV4(nn.Module):
             Inception_A(),
             Inception_A(),
             Inception_A(),
-            Reduction_A(), # Mixed_6a
+            Reduction_A(),  # Mixed_6a
             Inception_B(),
             Inception_B(),
             Inception_B(),
@@ -331,7 +331,7 @@ class InceptionV4(nn.Module):
             Inception_B(),
             Inception_B(),
             Inception_B(),
-            Reduction_B(), # Mixed_7a
+            Reduction_B(),  # Mixed_7a
             Inception_C(),
             Inception_C(),
             Inception_C()
@@ -359,7 +359,7 @@ class InceptionV4(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

@@ -18,7 +18,7 @@ class DukeMTMCVidReID(VideoDataset):
           Re-Identification by Stepwise Learning. CVPR 2018.
 
     URL: `<https://github.com/Yu-Wu/DukeMTMC-VideoReID>`_
-    
+
     Dataset statistics:
         - identities: 702 (train) + 702 (test).
         - tracklets: 2196 (train) + 2636 (test).
@@ -70,7 +70,7 @@ class DukeMTMCVidReID(VideoDataset):
             return split['tracklets']
 
         print('=> Generating split json file (** this might take a while **)')
-        pdirs = glob.glob(osp.join(dir_path, '*')) # avoid .DS_Store
+        pdirs = glob.glob(osp.join(dir_path, '*'))  # avoid .DS_Store
         print(
             'Processing "{}" with {} person identities'.format(
                 dir_path, len(pdirs)

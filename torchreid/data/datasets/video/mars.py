@@ -13,7 +13,7 @@ class Mars(VideoDataset):
         Zheng et al. MARS: A Video Benchmark for Large-Scale Person Re-identification. ECCV 2016.
 
     URL: `<http://www.liangzheng.com.cn/Project/project_mars.html>`_
-    
+
     Dataset statistics:
         - identities: 1261.
         - tracklets: 8298 (train) + 1980 (query) + 9330 (gallery).
@@ -49,12 +49,12 @@ class Mars(VideoDataset):
         train_names = self.get_names(self.train_name_path)
         test_names = self.get_names(self.test_name_path)
         track_train = loadmat(self.track_train_info_path
-                              )['track_train_info'] # numpy.ndarray (8298, 4)
+                              )['track_train_info']  # numpy.ndarray (8298, 4)
         track_test = loadmat(self.track_test_info_path
-                             )['track_test_info'] # numpy.ndarray (12180, 4)
+                             )['track_test_info']  # numpy.ndarray (12180, 4)
         query_IDX = loadmat(self.query_IDX_path
-                            )['query_IDX'].squeeze() # numpy.ndarray (1980,)
-        query_IDX -= 1 # index from 0
+                            )['query_IDX'].squeeze()  # numpy.ndarray (1980,)
+        query_IDX -= 1  # index from 0
         track_query = track_test[query_IDX, :]
         gallery_IDX = [
             i for i in range(track_test.shape[0]) if i not in query_IDX
@@ -96,11 +96,11 @@ class Mars(VideoDataset):
             data = meta_data[tracklet_idx, ...]
             start_index, end_index, pid, camid = data
             if pid == -1:
-                continue # junk images are just ignored
+                continue  # junk images are just ignored
             assert 1 <= camid <= 6
             if relabel:
                 pid = pid2label[pid]
-            camid -= 1 # index starts from 0
+            camid -= 1  # index starts from 0
             img_names = names[start_index - 1:end_index]
 
             # make sure image names correspond to the same person

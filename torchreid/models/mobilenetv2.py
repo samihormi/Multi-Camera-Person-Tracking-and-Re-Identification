@@ -8,16 +8,16 @@ __all__ = ['mobilenetv2_x1_0', 'mobilenetv2_x1_4']
 model_urls = {
     # 1.0: top-1 71.3
     'mobilenetv2_x1_0':
-    'https://mega.nz/#!NKp2wAIA!1NH1pbNzY_M2hVk_hdsxNM1NUOWvvGPHhaNr-fASF6c',
+    'https://mega.nz/# !NKp2wAIA!1NH1pbNzY_M2hVk_hdsxNM1NUOWvvGPHhaNr-fASF6c',
     # 1.4: top-1 73.9
     'mobilenetv2_x1_4':
-    'https://mega.nz/#!RGhgEIwS!xN2s2ZdyqI6vQ3EwgmRXLEW3khr9tpXg96G9SUJugGk',
+    'https://mega.nz/# !RGhgEIwS!xN2s2ZdyqI6vQ3EwgmRXLEW3khr9tpXg96G9SUJugGk',
 }
 
 
 class ConvBlock(nn.Module):
     """Basic convolutional block.
-    
+
     convolution (bias discarded) + batch normalization + relu6.
 
     Args:
@@ -222,7 +222,7 @@ class MobileNetV2(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

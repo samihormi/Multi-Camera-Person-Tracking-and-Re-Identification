@@ -53,7 +53,7 @@ class SenseReID(ImageDataset):
             (img_path, pid2label[pid], camid)
             for img_path, pid, camid in gallery
         ]
-        train = copy.deepcopy(query) + copy.deepcopy(gallery) # dummy variable
+        train = copy.deepcopy(query) + copy.deepcopy(gallery)  # dummy variable
 
         super(SenseReID, self).__init__(train, query, gallery, **kwargs)
 

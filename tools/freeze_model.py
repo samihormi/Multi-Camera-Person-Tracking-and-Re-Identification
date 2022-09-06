@@ -160,14 +160,13 @@ def _create_network(incoming, reuse=None, weight_decay=1e-8):
 def _network_factory(weight_decay=1e-8):
 
     def factory_fn(image, reuse):
-            with slim.arg_scope([slim.batch_norm, slim.dropout],
-                                is_training=False):
-                with slim.arg_scope([slim.conv2d, slim.fully_connected,
-                                     slim.batch_norm, slim.layer_norm],
-                                    reuse=reuse):
-                    features, logits = _create_network(
-                        image, reuse=reuse, weight_decay=weight_decay)
-                    return features, logits
+        with slim.arg_scope([slim.batch_norm, slim.dropout],
+                            is_training=False):
+            with slim.arg_scope([slim.conv2d, slim.fully_connected, slim.batch_norm, slim.layer_norm],
+                                reuse=reuse):
+                features, logits = _create_network(
+                    image, reuse=reuse, weight_decay=weight_decay)
+                return features, logits
 
     return factory_fn
 

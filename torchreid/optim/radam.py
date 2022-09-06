@@ -2,13 +2,6 @@
 Imported from: https://github.com/LiyuanLucasLiu/RAdam
 
 Paper: https://arxiv.org/abs/1908.03265
-
-@article{liu2019radam,
-  title={On the Variance of the Adaptive Learning Rate and Beyond},
-  author={Liu, Liyuan and Jiang, Haoming and He, Pengcheng and Chen, Weizhu and Liu, Xiaodong and Gao, Jianfeng and Han, Jiawei},
-  journal={arXiv preprint arXiv:1908.03265},
-  year={2019}
-}
 """
 from __future__ import print_function, absolute_import
 import math

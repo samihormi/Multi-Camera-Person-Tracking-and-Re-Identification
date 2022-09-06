@@ -29,7 +29,7 @@ class MSMT17(ImageDataset):
         Wei et al. Person Transfer GAN to Bridge Domain Gap for Person Re-Identification. CVPR 2018.
 
     URL: `<http://www.pkuvmc.com/publications/msmt17.html>`_
-    
+
     Dataset statistics:
         - identities: 4101.
         - images: 32621 (train) + 11659 (query) + 82161 (gallery).
@@ -90,8 +90,8 @@ class MSMT17(ImageDataset):
 
         for img_idx, img_info in enumerate(lines):
             img_path, pid = img_info.split(' ')
-            pid = int(pid) # no need to relabel
-            camid = int(img_path.split('_')[2]) - 1 # index starts from 0
+            pid = int(pid)  # no need to relabel
+            camid = int(img_path.split('_')[2]) - 1  # index starts from 0
             img_path = osp.join(dir_path, img_path)
             data.append((img_path, pid, camid))
 

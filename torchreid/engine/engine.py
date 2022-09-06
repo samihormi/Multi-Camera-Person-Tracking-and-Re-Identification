@@ -326,7 +326,7 @@ class Engine(object):
 
         for name in targets:
             domain = 'source' if name in self.datamanager.sources else 'target'
-            print('##### Evaluating {} ({}) #####'.format(name, domain))
+            print('# ## ## Evaluating {} ({})  # ## ## '.format(name, domain))
             query_loader = self.test_loader[name]['query']
             gallery_loader = self.test_loader[name]['gallery']
             rank1 = self._evaluate(

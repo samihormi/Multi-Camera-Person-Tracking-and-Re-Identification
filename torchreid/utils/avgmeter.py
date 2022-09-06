@@ -9,9 +9,9 @@ class AverageMeter(object):
     """Computes and stores the average and current value.
 
     Examples::
-        >>> # Initialize a meter to record loss
+        >>>  # Initialize a meter to record loss
         >>> losses = AverageMeter()
-        >>> # Update meter after every minibatch update
+        >>>  # Update meter after every minibatch update
         >>> losses.update(loss_value, batch_size)
     """
 
@@ -37,12 +37,12 @@ class MetricMeter(object):
     Source: https://github.com/KaiyangZhou/Dassl.pytorch
 
     Examples::
-        >>> # 1. Create an instance of MetricMeter
+        >>>  # 1. Create an instance of MetricMeter
         >>> metric = MetricMeter()
-        >>> # 2. Update using a dictionary as input
+        >>>  # 2. Update using a dictionary as input
         >>> input_dict = {'loss_1': value_1, 'loss_2': value_2}
         >>> metric.update(input_dict)
-        >>> # 3. Convert to string and print
+        >>>  # 3. Convert to string and print
         >>> print(str(metric))
     """
 

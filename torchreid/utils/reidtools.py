@@ -10,7 +10,7 @@ __all__ = ['visualize_ranked_results']
 
 GRID_SPACING = 10
 QUERY_EXTRA_SPACING = 90
-BW = 5 # border width
+BW = 5  # border width
 GREEN = (0, 255, 0)
 RED = (0, 0, 255)
 

@@ -15,7 +15,7 @@ class iLIDSVID(VideoDataset):
         Wang et al. Person Re-Identification by Video Ranking. ECCV 2014.
 
     URL: `<http://www.eecs.qmul.ac.uk/~xiatian/downloads_qmul_iLIDS-VID_ReID_dataset.html>`_
-    
+
     Dataset statistics:
         - identities: 300.
         - tracklets: 600.

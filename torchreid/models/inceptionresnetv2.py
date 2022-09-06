@@ -45,11 +45,11 @@ class BasicConv2d(nn.Module):
             stride=stride,
             padding=padding,
             bias=False
-        ) # verify bias false
+        )  # verify bias false
         self.bn = nn.BatchNorm2d(
             out_planes,
-            eps=0.001, # value found in tensorflow
-            momentum=0.1, # default pytorch value
+            eps=0.001,  # value found in tensorflow
+            momentum=0.1,  # default pytorch value
             affine=True
         )
         self.relu = nn.ReLU(inplace=False)

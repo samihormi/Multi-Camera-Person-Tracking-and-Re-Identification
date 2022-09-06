@@ -22,9 +22,9 @@ pretrained_urls = {
 }
 
 
-##########
+# ## ## ## ## #
 # Basic layers
-##########
+# ## ## ## ## #
 class ConvLayer(nn.Module):
     """Convolution layer (conv + bn + relu)."""
 
@@ -156,9 +156,9 @@ class LightConv3x3(nn.Module):
         return x
 
 
-##########
+# ## ## ## ## #
 # Building blocks for omni-scale feature learning
-##########
+# ## ## ## ## #
 class ChannelGate(nn.Module):
     """A mini-network that generates channel-wise gates conditioned on input tensor."""
 
@@ -276,12 +276,12 @@ class OSBlock(nn.Module):
         return F.relu(out)
 
 
-##########
+# ## ## ## ## #
 # Network architecture
-##########
+# ## ## ## ## #
 class OSNet(nn.Module):
     """Omni-Scale Network.
-    
+
     Reference:
         - Zhou et al. Omni-Scale Feature Learning for Person Re-Identification. ICCV, 2019.
         - Zhou et al. Learning Generalisable Omni-Scale Representations
@@ -439,7 +439,7 @@ class OSNet(nn.Module):
 
 def init_pretrained_weights(model, key=''):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     import os
@@ -485,7 +485,7 @@ def init_pretrained_weights(model, key=''):
 
     for k, v in state_dict.items():
         if k.startswith('module.'):
-            k = k[7:] # discard module.
+            k = k[7:]  # discard module.
 
         if k in model_dict and model_dict[k].size() == v.size():
             new_state_dict[k] = v
@@ -515,9 +515,9 @@ def init_pretrained_weights(model, key=''):
             )
 
 
-##########
+# ## ## ## ## #
 # Instantiation
-##########
+# ## ## ## ## #
 def osnet_x1_0(num_classes=1000, pretrained=True, loss='softmax', **kwargs):
     # standard size (width x1.0)
     model = OSNet(
