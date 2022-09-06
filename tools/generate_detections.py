@@ -97,6 +97,8 @@ class ImageEncoder(object):
 # get everyone feature in a frame
 # def encoder : return nx128 array
 # n means people nums of this frame
+
+
 def create_box_encoder(model_filename, input_name="images",
                        output_name="features", batch_size=32):
     image_encoder = ImageEncoder(model_filename, input_name, output_name)

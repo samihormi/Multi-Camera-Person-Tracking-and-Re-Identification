@@ -12,7 +12,7 @@ class CUHK02(ImageDataset):
         Li and Wang. Locally Aligned Feature Transforms across Views. CVPR 2013.
 
     URL: `<http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html>`_
-    
+
     Dataset statistics:
         - 5 camera view pairs each with two cameras
         - 971, 306, 107, 193 and 239 identities from P1 - P5

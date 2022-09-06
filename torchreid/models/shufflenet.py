@@ -9,7 +9,7 @@ __all__ = ['shufflenet']
 model_urls = {
     # training epoch = 90, top1 = 61.8
     'imagenet':
-    'https://mega.nz/#!RDpUlQCY!tr_5xBEkelzDjveIYBBcGcovNCOrgfiJO9kiidz9fZM',
+    'https://mega.nz/# !RDpUlQCY!tr_5xBEkelzDjveIYBBcGcovNCOrgfiJO9kiidz9fZM',
 }
 
 
@@ -88,7 +88,7 @@ class Bottleneck(nn.Module):
         return out
 
 
-# configuration of (num_groups: #out_channels) based on Table 1 in the paper
+# configuration of (num_groups:  # out_channels) based on Table 1 in the paper
 cfg = {
     1: [144, 288, 576],
     2: [200, 400, 800],
@@ -172,7 +172,6 @@ class ShuffleNet(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

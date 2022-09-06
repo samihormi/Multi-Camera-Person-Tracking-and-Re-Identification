@@ -8,7 +8,7 @@ __all__ = ['MuDeep']
 
 class ConvBlock(nn.Module):
     """Basic convolutional block.
-    
+
     convolution + batch normalization + relu.
 
     Args:

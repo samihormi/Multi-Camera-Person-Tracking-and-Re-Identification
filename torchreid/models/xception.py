@@ -16,8 +16,8 @@ pretrained_settings = {
             'mean': [0.5, 0.5, 0.5],
             'std': [0.5, 0.5, 0.5],
             'num_classes': 1000,
-            'scale':
-            0.8975 # The resize parameter of the validation transform should be 333, and make sure to center crop at 299x299
+            # The resize parameter of the validation transform should be 333, and make sure to center crop at 299x299
+            'scale': 0.8975
         }
     }
 }
@@ -144,7 +144,6 @@ class Block(nn.Module):
 
 class Xception(nn.Module):
     """Xception.
-    
     Reference:
         Chollet. Xception: Deep Learning with Depthwise
         Separable Convolutions. CVPR 2017.
@@ -322,7 +321,6 @@ class Xception(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initialize models with pretrained weights.
-    
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

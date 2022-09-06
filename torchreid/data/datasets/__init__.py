@@ -59,7 +59,7 @@ def register_image_dataset(name, dataset):
         dataset (Dataset): the new dataset class.
 
     Examples::
-        
+
         import torchreid
         import NewDataset
         torchreid.data.register_image_dataset('new_dataset', NewDataset)
@@ -92,7 +92,7 @@ def register_video_dataset(name, dataset):
         dataset (Dataset): the new dataset class.
 
     Examples::
-        
+
         import torchreid
         import NewDataset
         torchreid.data.register_video_dataset('new_dataset', NewDataset)

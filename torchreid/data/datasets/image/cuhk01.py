@@ -16,7 +16,7 @@ class CUHK01(ImageDataset):
         Li et al. Human Reidentification with Transferred Metric Learning. ACCV 2012.
 
     URL: `<http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html>`_
-    
+
     Dataset statistics:
         - identities: 971.
         - images: 3884.
@@ -80,7 +80,7 @@ class CUHK01(ImageDataset):
             for img_path in img_paths:
                 img_name = osp.basename(img_path)
                 pid = int(img_name[:4]) - 1
-                camid = (int(img_name[4:7]) - 1) // 2 # result is either 0 or 1
+                camid = (int(img_name[4:7]) - 1) // 2  # result is either 0 or 1
                 img_list.append((img_path, pid, camid))
                 pid_container.add(pid)
 

@@ -15,7 +15,7 @@ class iLIDS(ImageDataset):
 
     Reference:
         Zheng et al. Associating Groups of People. BMVC 2009.
-    
+
     Dataset statistics:
         - identities: 119.
         - images: 476.
@@ -121,7 +121,7 @@ class iLIDS(ImageDataset):
             pid = int(img_name[:4])
             if pid2label is not None:
                 pid = pid2label[pid]
-            camid = int(img_name[4:7]) - 1 # 0-based
+            camid = int(img_name[4:7]) - 1  # 0-based
             img_path = osp.join(self.data_dir, img_name)
             data.append((img_path, pid, camid))
 

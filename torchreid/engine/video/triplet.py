@@ -35,8 +35,8 @@ class VideoTripletEngine(ImageTripletEngine, VideoSoftmaxEngine):
             combineall=False,
             num_instances=4,
             train_sampler='RandomIdentitySampler'
-            batch_size=8, # number of tracklets
-            seq_len=15 # number of images in each tracklet
+            batch_size=8,  # number of tracklets
+            seq_len=15  # number of images in each tracklet
         )
         model = torchreid.models.build_model(
             name='resnet50',

@@ -15,7 +15,7 @@ class VIPeR(ImageDataset):
         Gray et al. Evaluating appearance models for recognition, reacquisition, and tracking. PETS 2007.
 
     URL: `<https://vision.soe.ucsc.edu/node/178>`_
-    
+
     Dataset statistics:
         - identities: 632.
         - images: 632 x 2 = 1264.
@@ -49,7 +49,7 @@ class VIPeR(ImageDataset):
         split = splits[split_id]
 
         train = split['train']
-        query = split['query'] # query and gallery share the same images
+        query = split['query']  # query and gallery share the same images
         gallery = split['gallery']
 
         train = [tuple(item) for item in train]
@@ -73,7 +73,7 @@ class VIPeR(ImageDataset):
             sub-splits, one using cameraA as query and cameraB as gallery
             while the other using cameraB as query and cameraA as gallery.
             Therefore, results should be averaged over 20 splits (split_id=0~19).
-            
+
             In practice, a model trained on split_id=0 can be applied to split_id=0&1
             as split_id=0&1 share the same training data (so on and so forth).
             """

@@ -15,7 +15,7 @@ class GRID(ImageDataset):
         Loy et al. Multi-camera activity correlation analysis. CVPR 2009.
 
     URL: `<http://personal.ie.cuhk.edu.hk/~ccloy/downloads_qmul_underground_reid.html>`_
-    
+
     Dataset statistics:
         - identities: 250.
         - images: 1275.
@@ -72,7 +72,7 @@ class GRID(ImageDataset):
         if not osp.exists(self.split_path):
             print('Creating 10 random splits')
             split_mat = loadmat(self.split_mat_path)
-            trainIdxAll = split_mat['trainIdxAll'][0] # length = 10
+            trainIdxAll = split_mat['trainIdxAll'][0]  # length = 10
             probe_img_paths = sorted(
                 glob.glob(osp.join(self.probe_path, '*.jpeg'))
             )
@@ -97,7 +97,7 @@ class GRID(ImageDataset):
                     img_idx = int(img_name.split('_')[0])
                     camid = int(
                         img_name.split('_')[1]
-                    ) - 1 # index starts from 0
+                    ) - 1  # index starts from 0
                     if img_idx in train_idxs:
                         train.append((img_path, idx2label[img_idx], camid))
                     else:
@@ -109,7 +109,7 @@ class GRID(ImageDataset):
                     img_idx = int(img_name.split('_')[0])
                     camid = int(
                         img_name.split('_')[1]
-                    ) - 1 # index starts from 0
+                    ) - 1  # index starts from 0
                     if img_idx in train_idxs:
                         train.append((img_path, idx2label[img_idx], camid))
                     else:

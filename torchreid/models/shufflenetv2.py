@@ -117,7 +117,6 @@ class InvertedResidual(nn.Module):
 
 class ShuffleNetV2(nn.Module):
     """ShuffleNetV2.
-    
     Reference:
         Ma et al. ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design. ECCV 2018.
 
@@ -206,7 +205,6 @@ class ShuffleNetV2(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     if model_url is None:

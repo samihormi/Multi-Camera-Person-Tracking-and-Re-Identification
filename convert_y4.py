@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+# ! /usr/bin/env python
 """
 Creates Keras model with TF backend.
 
@@ -28,6 +28,7 @@ from operator import itemgetter
 parser = argparse.ArgumentParser()
 parser.add_argument('weights_path', help='Path to Darknet weights file.')
 parser.add_argument('output_path', help='Path to output Keras model file.')
+
 
 class Yolo4(object):
     def get_class(self):
@@ -72,7 +73,7 @@ class Yolo4(object):
         weights_file = open(self.weights_path, 'rb')
         major, minor, revision = np.ndarray(
             shape=(3, ), dtype='int32', buffer=weights_file.read(12))
-        if (major*10+minor)>=2 and major<1000 and minor<1000:
+        if (major * 10 + minor) >= 2 and major < 1000 and minor < 1000:
             seen = np.ndarray(shape=(1,), dtype='int64', buffer=weights_file.read(8))
         else:
             seen = np.ndarray(shape=(1,), dtype='int32', buffer=weights_file.read(4))
@@ -92,9 +93,9 @@ class Yolo4(object):
 
         bn_index = 0
         for i in range(len(convs_sorted)):
-            print('Converting {}/{}'.format(i+1,len(convs_sorted)))
+            print('Converting {}/{}'.format(i + 1, len(convs_sorted)))
             if i == 93 or i == 101 or i == 109:
-                #no bn, with bias
+                # no bn, with bias
                 weights_shape = self.yolo4_model.layers[convs_sorted[i][1]].get_weights()[0].shape
                 bias_shape = self.yolo4_model.layers[convs_sorted[i][1]].get_weights()[0].shape[3]
                 filters = bias_shape
@@ -113,7 +114,7 @@ class Yolo4(object):
                 conv_weights = np.transpose(conv_weights, [2, 3, 1, 0])
                 self.yolo4_model.layers[convs_sorted[i][1]].set_weights([conv_weights, conv_bias])
             else:
-                #with bn, no bias
+                # with bn, no bias
                 weights_shape = self.yolo4_model.layers[convs_sorted[i][1]].get_weights()[0].shape
                 size = weights_shape[0]
                 bn_shape = self.yolo4_model.layers[bns_sorted[bn_index][1]].get_weights()[0].shape
@@ -152,14 +153,13 @@ class Yolo4(object):
         self.yolo4_model.save(self.model_path)
         logging.info("model saved to: {}".format(self.model_path))
 
-
-        if self.gpu_num>=2:
+        if self.gpu_num >= 2:
             self.yolo4_model = multi_gpu_model(self.yolo4_model, gpus=self.gpu_num)
 
         self.input_image_shape = K.placeholder(shape=(2, ))
-        self.boxes, self.scores, self.classes = yolo_eval(self.yolo4_model.output, self.anchors,
-                len(self.class_names), self.input_image_shape,
-                score_threshold=self.score)
+        self.boxes, self.scores, self.classes = yolo_eval(
+            self.yolo4_model.output, self.anchors, len(self.class_names), self.input_image_shape,
+            score_threshold=self.score)
 
     def __init__(self, score, iou, anchors_path, classes_path, model_path, weights_path, gpu_num=1):
         self.score = score
@@ -173,6 +173,7 @@ class Yolo4(object):
 
     def close_session(self):
         self.sess.close()
+
 
 if __name__ == '__main__':
     anchors_path = 'model_data/anchors/yolov4_anchors.txt'

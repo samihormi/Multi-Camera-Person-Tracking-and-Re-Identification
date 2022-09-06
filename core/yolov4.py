@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+# ! /usr/bin/env python
 # coding=utf-8
 
 import numpy as np
@@ -13,6 +13,7 @@ from core.config import cfg
 # IOU_LOSS_THRESH = cfg.YOLO.IOU_LOSS_THRESH
 # XYSCALE = cfg.YOLO.XYSCALE
 # ANCHORS = utils.get_anchors(cfg.YOLO.ANCHORS)
+
 
 def YOLOv3(input_layer, NUM_CLASS):
     route_1, route_2, conv = backbone.darknet53(input_layer)
@@ -55,6 +56,7 @@ def YOLOv3(input_layer, NUM_CLASS):
     conv_sbbox = common.convolutional(conv_sobj_branch, (1, 1, 256, 3 * (NUM_CLASS + 5)), activate=False, bn=False)
 
     return [conv_sbbox, conv_mbbox, conv_lbbox]
+
 
 def YOLOv4(input_layer, NUM_CLASS):
     route_1, route_2, conv = backbone.cspdarknet53(input_layer)
@@ -114,6 +116,7 @@ def YOLOv4(input_layer, NUM_CLASS):
 
     return [conv_sbbox, conv_mbbox, conv_lbbox]
 
+
 def YOLOv3_tiny(input_layer, NUM_CLASS):
     route_1, conv = backbone.darknet53_tiny(input_layer)
 
@@ -131,14 +134,15 @@ def YOLOv3_tiny(input_layer, NUM_CLASS):
 
     return [conv_mbbox, conv_lbbox]
 
+
 def decode(conv_output, NUM_CLASS, i=0):
     """
     return tensor of shape [batch_size, output_size, output_size, anchor_per_scale, 5 + num_classes]
             contains (x, y, w, h, score, probability)
     """
-    conv_shape       = tf.shape(conv_output)
-    batch_size       = conv_shape[0]
-    output_size      = conv_shape[1]
+    conv_shape = tf.shape(conv_output)
+    batch_size = conv_shape[0]
+    output_size = conv_shape[1]
 
     conv_output = tf.reshape(conv_output, (batch_size, output_size, output_size, 3, 5 + NUM_CLASS))
     conv_raw_xywh, conv_raw_conf, conv_raw_prob = tf.split(conv_output, (4, 1, NUM_CLASS), axis=-1)
@@ -148,7 +152,8 @@ def decode(conv_output, NUM_CLASS, i=0):
 
     return tf.concat([conv_raw_xywh, pred_conf, pred_prob], axis=-1)
 
-def decode_train(conv_output, NUM_CLASS, STRIDES, ANCHORS, i=0, XYSCALE=[1,1,1]):
+
+def decode_train(conv_output, NUM_CLASS, STRIDES, ANCHORS, i=0, XYSCALE=[1, 1, 1]):
     conv_shape = tf.shape(conv_output)
     batch_size = conv_shape[0]
     output_size = conv_shape[1]
@@ -174,15 +179,14 @@ def decode_train(conv_output, NUM_CLASS, STRIDES, ANCHORS, i=0, XYSCALE=[1,1,1])
 
     return tf.concat([pred_xywh, pred_conf, pred_prob], axis=-1)
 
+
 def bbox_iou(boxes1, boxes2):
 
     boxes1_area = boxes1[..., 2] * boxes1[..., 3]
     boxes2_area = boxes2[..., 2] * boxes2[..., 3]
 
-    boxes1_coor = tf.concat([boxes1[..., :2] - boxes1[..., 2:] * 0.5,
-                        boxes1[..., :2] + boxes1[..., 2:] * 0.5], axis=-1)
-    boxes2_coor = tf.concat([boxes2[..., :2] - boxes2[..., 2:] * 0.5,
-                        boxes2[..., :2] + boxes2[..., 2:] * 0.5], axis=-1)
+    boxes1_coor = tf.concat([boxes1[..., :2] - boxes1[..., 2:] * 0.5, boxes1[..., :2] + boxes1[..., 2:] * 0.5], axis=-1)
+    boxes2_coor = tf.concat([boxes2[..., :2] - boxes2[..., 2:] * 0.5, boxes2[..., :2] + boxes2[..., 2:] * 0.5], axis=-1)
 
     left_up = tf.maximum(boxes1_coor[..., :2], boxes1_coor[..., :2])
     right_down = tf.minimum(boxes2_coor[..., 2:], boxes2_coor[..., 2:])
@@ -193,11 +197,10 @@ def bbox_iou(boxes1, boxes2):
 
     return 1.0 * inter_area / union_area
 
+
 def bbox_ciou(boxes1, boxes2):
-    boxes1_coor = tf.concat([boxes1[..., :2] - boxes1[..., 2:] * 0.5,
-                        boxes1[..., :2] + boxes1[..., 2:] * 0.5], axis=-1)
-    boxes2_coor = tf.concat([boxes2[..., :2] - boxes2[..., 2:] * 0.5,
-                        boxes2[..., :2] + boxes2[..., 2:] * 0.5], axis=-1)
+    boxes1_coor = tf.concat([boxes1[..., :2] - boxes1[..., 2:] * 0.5, boxes1[..., :2] + boxes1[..., 2:] * 0.5], axis=-1)
+    boxes2_coor = tf.concat([boxes2[..., :2] - boxes2[..., 2:] * 0.5, boxes2[..., :2] + boxes2[..., 2:] * 0.5], axis=-1)
 
     left = tf.maximum(boxes1_coor[..., 0], boxes2_coor[..., 0])
     up = tf.maximum(boxes1_coor[..., 1], boxes2_coor[..., 1])
@@ -207,7 +210,12 @@ def bbox_ciou(boxes1, boxes2):
     c = (right - left) * (right - left) + (up - down) * (up - down)
     iou = bbox_iou(boxes1, boxes2)
 
-    u = (boxes1[..., 0] - boxes2[..., 0]) * (boxes1[..., 0] - boxes2[..., 0]) + (boxes1[..., 1] - boxes2[..., 1]) * (boxes1[..., 1] - boxes2[..., 1])
+    u = (
+        boxes1[..., 0] - boxes2[..., 0]) * (
+        boxes1[..., 0] - boxes2[..., 0]) + (
+        boxes1[..., 1] - boxes2[..., 1]) * (
+        boxes1[..., 1] - boxes2[..., 1]
+    )
     d = u / c
 
     ar_gt = boxes2[..., 2] / boxes2[..., 3]
@@ -218,6 +226,7 @@ def bbox_ciou(boxes1, boxes2):
     ciou_term = d + alpha * ar_loss
 
     return iou - ciou_term
+
 
 def bbox_giou(boxes1, boxes2):
 
@@ -250,33 +259,34 @@ def bbox_giou(boxes1, boxes2):
 
     return giou
 
+
 def compute_loss(pred, conv, label, bboxes, STRIDES, NUM_CLASS, IOU_LOSS_THRESH, i=0):
-    conv_shape  = tf.shape(conv)
-    batch_size  = conv_shape[0]
+    conv_shape = tf.shape(conv)
+    batch_size = conv_shape[0]
     output_size = conv_shape[1]
-    input_size  = STRIDES[i] * output_size
+    input_size = STRIDES[i] * output_size
     conv = tf.reshape(conv, (batch_size, output_size, output_size, 3, 5 + NUM_CLASS))
 
     conv_raw_conf = conv[:, :, :, :, 4:5]
     conv_raw_prob = conv[:, :, :, :, 5:]
 
-    pred_xywh     = pred[:, :, :, :, 0:4]
-    pred_conf     = pred[:, :, :, :, 4:5]
+    pred_xywh = pred[:, :, :, :, 0:4]
+    pred_conf = pred[:, :, :, :, 4:5]
 
-    label_xywh    = label[:, :, :, :, 0:4]
-    respond_bbox  = label[:, :, :, :, 4:5]
-    label_prob    = label[:, :, :, :, 5:]
+    label_xywh = label[:, :, :, :, 0:4]
+    respond_bbox = label[:, :, :, :, 4:5]
+    label_prob = label[:, :, :, :, 5:]
 
     giou = tf.expand_dims(bbox_giou(pred_xywh, label_xywh), axis=-1)
     input_size = tf.cast(input_size, tf.float32)
 
     bbox_loss_scale = 2.0 - 1.0 * label_xywh[:, :, :, :, 2:3] * label_xywh[:, :, :, :, 3:4] / (input_size ** 2)
-    giou_loss = respond_bbox * bbox_loss_scale * (1- giou)
+    giou_loss = respond_bbox * bbox_loss_scale * (1 - giou)
 
     iou = bbox_iou(pred_xywh[:, :, :, :, np.newaxis, :], bboxes[:, np.newaxis, np.newaxis, np.newaxis, :, :])
     max_iou = tf.expand_dims(tf.reduce_max(iou, axis=-1), axis=-1)
 
-    respond_bgd = (1.0 - respond_bbox) * tf.cast( max_iou < IOU_LOSS_THRESH, tf.float32 )
+    respond_bgd = (1.0 - respond_bbox) * tf.cast(max_iou < IOU_LOSS_THRESH, tf.float32)
 
     conf_focal = tf.pow(respond_bbox - pred_conf, 2)
 
@@ -288,13 +298,8 @@ def compute_loss(pred, conv, label, bboxes, STRIDES, NUM_CLASS, IOU_LOSS_THRESH,
 
     prob_loss = respond_bbox * tf.nn.sigmoid_cross_entropy_with_logits(labels=label_prob, logits=conv_raw_prob)
 
-    giou_loss = tf.reduce_mean(tf.reduce_sum(giou_loss, axis=[1,2,3,4]))
-    conf_loss = tf.reduce_mean(tf.reduce_sum(conf_loss, axis=[1,2,3,4]))
-    prob_loss = tf.reduce_mean(tf.reduce_sum(prob_loss, axis=[1,2,3,4]))
+    giou_loss = tf.reduce_mean(tf.reduce_sum(giou_loss, axis=[1, 2, 3, 4]))
+    conf_loss = tf.reduce_mean(tf.reduce_sum(conf_loss, axis=[1, 2, 3, 4]))
+    prob_loss = tf.reduce_mean(tf.reduce_sum(prob_loss, axis=[1, 2, 3, 4]))
 
     return giou_loss, conf_loss, prob_loss
-
-
-
-
-

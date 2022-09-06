@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+# ! /usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Run a YOLO_v3 style detection model on test images.
@@ -8,7 +8,7 @@ import colorsys
 import os
 import random
 from timeit import time
-from timeit import default_timer as timer  ### to calculate FPS
+from timeit import default_timer as timer  # ## to calculate FPS
 
 import numpy as np
 from keras import backend as K
@@ -16,8 +16,9 @@ from keras.models import load_model
 from keras.layers import Input
 from PIL import Image, ImageFont, ImageDraw
 
-from yolo3.model import yolo_eval,yolo_body
+from yolo3.model import yolo_eval, yolo_body
 from yolo3.utils import letterbox_image
+
 
 class YOLO3(object):
     def __init__(self):
@@ -29,7 +30,7 @@ class YOLO3(object):
         self.class_names = self._get_class()
         self.anchors = self._get_anchors()
         self.sess = K.get_session()
-        self.model_image_size = (416, 416) # fixed size or (None, None)
+        self.model_image_size = (416, 416)  # fixed size or (None, None)
         self.is_fixed_size = self.model_image_size != (None, None)
         self.boxes, self.scores, self.classes = self.generate()
 
@@ -57,9 +58,9 @@ class YOLO3(object):
         num_classes = len(self.class_names)
         try:
             self.yolo_model = load_model(model_path, compile=False)
-        except:
-            self.yolo_model = yolo_body(Input(shape=(None,None,3)), num_anchors//3, num_classes)
-            self.yolo_model.load_weights(self.model_path) # make sure model, anchors and classes match
+        except Exception:
+            self.yolo_model = yolo_body(Input(shape=(None, None, 3)), num_anchors // 3, num_classes)
+            self.yolo_model.load_weights(self.model_path)  # make sure model, anchors and classes match
         else:
             assert self.yolo_model.layers[-1].output_shape[-1] == \
                 num_anchors/len(self.yolo_model.output) * (num_classes + 5), \
@@ -80,15 +81,15 @@ class YOLO3(object):
 
         # Generate output tensor targets for filtered bounding boxes.
         self.input_image_shape = K.placeholder(shape=(2, ))
-        boxes, scores, classes = yolo_eval(self.yolo_model.output, self.anchors,
-                len(self.class_names), self.input_image_shape,
-                score_threshold=self.score, iou_threshold=self.iou)
+        boxes, scores, classes = yolo_eval(
+            self.yolo_model.output, self.anchors, len(self.class_names), self.input_image_shape,
+            score_threshold=self.score, iou_threshold=self.iou)
         return boxes, scores, classes
 
     def detect_image(self, image):
         if self.is_fixed_size:
-            assert self.model_image_size[0]%32 == 0, 'Multiples of 32 required'
-            assert self.model_image_size[1]%32 == 0, 'Multiples of 32 required'
+            assert self.model_image_size[0] % 32 == 0, 'Multiples of 32 required'
+            assert self.model_image_size[1] % 32 == 0, 'Multiples of 32 required'
             boxed_image = letterbox_image(image, tuple(reversed(self.model_image_size)))
         else:
             new_image_size = (image.width - (image.width % 32),
@@ -96,10 +97,10 @@ class YOLO3(object):
             boxed_image = letterbox_image(image, new_image_size)
         image_data = np.array(boxed_image, dtype='float32')
 
-        #print(image_data.shape)
+        # print(image_data.shape)
         image_data /= 255.
         image_data = np.expand_dims(image_data, 0)  # Add batch dimension.
-        
+
         out_boxes, out_scores, out_classes = self.sess.run(
             [self.boxes, self.scores, self.classes],
             feed_dict={
@@ -110,21 +111,21 @@ class YOLO3(object):
         return_boxs = []
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
-            if predicted_class != 'person' :
+            if predicted_class != 'person':
                 continue
             box = out_boxes[i]
-           # score = out_scores[i]  
-            x = int(box[1])  
-            y = int(box[0])  
-            w = int(box[3]-box[1])
-            h = int(box[2]-box[0])
-            if x < 0 :
+            # score = out_scores[i]
+            x = int(box[1])
+            y = int(box[0])
+            w = int(box[3] - box[1])
+            h = int(box[2] - box[0])
+            if x < 0:
                 w = w + x
                 x = 0
-            if y < 0 :
+            if y < 0:
                 h = h + y
-                y = 0 
-            return_boxs.append([x,y,w,h])
+                y = 0
+            return_boxs.append([x, y, w, h])
 
         return return_boxs
 

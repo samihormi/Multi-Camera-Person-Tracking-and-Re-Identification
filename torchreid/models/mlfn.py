@@ -9,7 +9,7 @@ __all__ = ['mlfn']
 model_urls = {
     # training epoch = 5, top1 = 51.6
     'imagenet':
-    'https://mega.nz/#!YHxAhaxC!yu9E6zWl0x5zscSouTdbZu8gdFFytDdl-RAdD2DEfpk',
+    'https://mega.nz/# !YHxAhaxC!yu9E6zWl0x5zscSouTdbZu8gdFFytDdl-RAdD2DEfpk',
 }
 
 
@@ -78,7 +78,7 @@ class MLFNBlock(nn.Module):
         # factor selection
         b, c = x.size(0), x.size(1)
         n = c // self.groups
-        ss = s.repeat(1, n, 1, 1) # from (b, g, 1, 1) to (b, g*n=c, 1, 1)
+        ss = s.repeat(1, n, 1, 1)  # from (b, g, 1, 1) to (b, g*n=c, 1, 1)
         ss = ss.view(b, n, self.groups, 1, 1)
         ss = ss.permute(0, 2, 1, 3, 4).contiguous()
         ss = ss.view(b, c, 1, 1)
@@ -243,7 +243,7 @@ class MLFN(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

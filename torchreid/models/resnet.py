@@ -156,7 +156,7 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
     """Residual network.
-    
+
     Reference:
         - He et al. Deep Residual Learning for Image Recognition. CVPR 2016.
         - Xie et al. Aggregated Residual Transformations for Deep Neural Networks. CVPR 2017.
@@ -373,7 +373,7 @@ class ResNet(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

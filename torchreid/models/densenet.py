@@ -77,7 +77,7 @@ class _DenseBlock(nn.Sequential):
                 num_input_features + i*growth_rate, growth_rate, bn_size,
                 drop_rate
             )
-            self.add_module('denselayer%d' % (i+1), layer)
+            self.add_module('denselayer%d' % (i + 1), layer)
 
 
 class _Transition(nn.Sequential):
@@ -101,7 +101,7 @@ class _Transition(nn.Sequential):
 
 class DenseNet(nn.Module):
     """Densely connected network.
-    
+
     Reference:
         Huang et al. Densely Connected Convolutional Networks. CVPR 2017.
 
@@ -165,14 +165,14 @@ class DenseNet(nn.Module):
                 growth_rate=growth_rate,
                 drop_rate=drop_rate
             )
-            self.features.add_module('denseblock%d' % (i+1), block)
+            self.features.add_module('denseblock%d' % (i + 1), block)
             num_features = num_features + num_layers*growth_rate
             if i != len(block_config) - 1:
                 trans = _Transition(
                     num_input_features=num_features,
                     num_output_features=num_features // 2
                 )
-                self.features.add_module('transition%d' % (i+1), trans)
+                self.features.add_module('transition%d' % (i + 1), trans)
                 num_features = num_features // 2
 
         # Final batch norm
@@ -261,7 +261,7 @@ class DenseNet(nn.Module):
 
 def init_pretrained_weights(model, model_url):
     """Initializes model with pretrained weights.
-    
+
     Layers that don't match with pretrained layers in name or size are kept unchanged.
     """
     pretrain_dict = model_zoo.load_url(model_url)

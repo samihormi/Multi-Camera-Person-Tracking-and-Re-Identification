@@ -35,7 +35,7 @@ def eval_cuhk03(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
     # compute cmc curve for each query
     all_cmc = []
     all_AP = []
-    num_valid_q = 0. # number of valid query
+    num_valid_q = 0.  # number of valid query
 
     for q_idx in range(num_q):
         # get query pid and camid
@@ -49,7 +49,7 @@ def eval_cuhk03(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
 
         # compute cmc curve
         raw_cmc = matches[q_idx][
-            keep] # binary vector, positions with value 1 are correct matches
+            keep]  # binary vector, positions with value 1 are correct matches
         if not np.any(raw_cmc):
             # this condition is true when query identity does not appear in gallery
             continue
@@ -76,7 +76,7 @@ def eval_cuhk03(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
         # compute AP
         num_rel = raw_cmc.sum()
         tmp_cmc = raw_cmc.cumsum()
-        tmp_cmc = [x / (i+1.) for i, x in enumerate(tmp_cmc)]
+        tmp_cmc = [x / (i + 1.) for i, x in enumerate(tmp_cmc)]
         tmp_cmc = np.asarray(tmp_cmc) * raw_cmc
         AP = tmp_cmc.sum() / num_rel
         all_AP.append(AP)
@@ -110,7 +110,7 @@ def eval_market1501(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
     # compute cmc curve for each query
     all_cmc = []
     all_AP = []
-    num_valid_q = 0. # number of valid query
+    num_valid_q = 0.  # number of valid query
 
     for q_idx in range(num_q):
         # get query pid and camid
@@ -124,7 +124,7 @@ def eval_market1501(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
 
         # compute cmc curve
         raw_cmc = matches[q_idx][
-            keep] # binary vector, positions with value 1 are correct matches
+            keep]  # binary vector, positions with value 1 are correct matches
         if not np.any(raw_cmc):
             # this condition is true when query identity does not appear in gallery
             continue
@@ -136,10 +136,10 @@ def eval_market1501(distmat, q_pids, g_pids, q_camids, g_camids, max_rank):
         num_valid_q += 1.
 
         # compute average precision
-        # reference: https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision
+        # reference: https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)# Average_precision
         num_rel = raw_cmc.sum()
         tmp_cmc = raw_cmc.cumsum()
-        tmp_cmc = [x / (i+1.) for i, x in enumerate(tmp_cmc)]
+        tmp_cmc = [x / (i + 1.) for i, x in enumerate(tmp_cmc)]
         tmp_cmc = np.asarray(tmp_cmc) * raw_cmc
         AP = tmp_cmc.sum() / num_rel
         all_AP.append(AP)

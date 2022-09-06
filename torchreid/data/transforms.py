@@ -145,7 +145,7 @@ class RandomPatch(object):
     """Random patch data augmentation.
 
     There is a patch pool that stores randomly extracted pathces from person images.
-    
+
     For each input image, RandomPatch
         1) extracts a random patch and stores the patch in the patch pool;
         2) randomly selects a patch from the patch pool and pastes it on the
@@ -203,7 +203,7 @@ class RandomPatch(object):
         return patch
 
     def __call__(self, img):
-        W, H = img.size # original image size
+        W, H = img.size  # original image size
 
         # collect new patch
         w, h = self.generate_wh(W, H)
@@ -266,8 +266,8 @@ def build_transforms(
         transforms = [t.lower() for t in transforms]
 
     if norm_mean is None or norm_std is None:
-        norm_mean = [0.485, 0.456, 0.406] # imagenet mean
-        norm_std = [0.229, 0.224, 0.225] # imagenet std
+        norm_mean = [0.485, 0.456, 0.406]  # imagenet mean
+        norm_std = [0.229, 0.224, 0.225]  # imagenet std
     normalize = Normalize(mean=norm_mean, std=norm_std)
 
     print('Building train transforms ...')

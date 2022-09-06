@@ -141,7 +141,7 @@ class Track:
 
         self.hits += 1
         self.time_since_update = 0
-        if self.state == TrackState.Tentative and self.hits >= self._n_init: #确认3帧后才confirmed
+        if self.state == TrackState.Tentative and self.hits >= self._n_init:
             self.state = TrackState.Confirmed
 
     def mark_missed(self):

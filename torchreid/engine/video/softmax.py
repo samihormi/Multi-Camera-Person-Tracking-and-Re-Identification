@@ -19,7 +19,7 @@ class VideoSoftmaxEngine(ImageSoftmaxEngine):
             Default is "avg" (average). Choices are ["avg", "max"].
 
     Examples::
-        
+
         import torch
         import torchreid
         # Each batch contains batch_size*seq_len images
@@ -29,8 +29,8 @@ class VideoSoftmaxEngine(ImageSoftmaxEngine):
             height=256,
             width=128,
             combineall=False,
-            batch_size=8, # number of tracklets
-            seq_len=15 # number of images in each tracklet
+            batch_size=8,  # number of tracklets
+            seq_len=15  # number of images in each tracklet
         )
         model = torchreid.models.build_model(
             name='resnet50',

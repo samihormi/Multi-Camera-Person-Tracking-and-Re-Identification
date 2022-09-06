@@ -22,7 +22,7 @@ class ImageTripletEngine(Engine):
         label_smooth (bool, optional): use label smoothing regularizer. Default is True.
 
     Examples::
-        
+
         import torchreid
         datamanager = torchreid.data.ImageDataManager(
             root='path/to/reid-data',
@@ -32,7 +32,7 @@ class ImageTripletEngine(Engine):
             combineall=False,
             batch_size=32,
             num_instances=4,
-            train_sampler='RandomIdentitySampler' # this is important
+            train_sampler='RandomIdentitySampler'  # this is important
         )
         model = torchreid.models.build_model(
             name='resnet50',

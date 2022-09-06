@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 from core.config import cfg
 
+
 def load_weights_tiny(model, weights_file):
     wf = open(weights_file, 'rb')
     major, minor, revision, seen, _ = np.fromfile(wf, dtype=np.int32, count=5)
@@ -43,6 +44,7 @@ def load_weights_tiny(model, weights_file):
 
     assert len(wf.read()) == 0, 'failed to read all data'
     wf.close()
+
 
 def load_weights_v3(model, weights_file):
     wf = open(weights_file, 'rb')
@@ -83,14 +85,15 @@ def load_weights_v3(model, weights_file):
     assert len(wf.read()) == 0, 'failed to read all data'
     wf.close()
 
+
 def load_weights(model, weights_file):
     wf = open(weights_file, 'rb')
     major, minor, revision, seen, _ = np.fromfile(wf, dtype=np.int32, count=5)
 
     j = 0
     for i in range(110):
-        conv_layer_name = 'conv2d_%d' %i if i > 0 else 'conv2d'
-        bn_layer_name = 'batch_normalization_%d' %j if j > 0 else 'batch_normalization'
+        conv_layer_name = 'conv2d_%d' % i if i > 0 else 'conv2d'
+        bn_layer_name = 'batch_normalization_%d' % j if j > 0 else 'batch_normalization'
 
         conv_layer = model.get_layer(conv_layer_name)
         filters = conv_layer.filters
@@ -145,11 +148,11 @@ def get_anchors(anchors_path, tiny=False):
 
 def image_preporcess(image, target_size, gt_boxes=None):
 
-    ih, iw    = target_size
-    h,  w, _  = image.shape
+    ih, iw = target_size
+    h,  w, _ = image.shape
 
     scale = min(iw/w, ih/h)
-    nw, nh  = int(scale * w), int(scale * h)
+    nw, nh = int(scale * w), int(scale * h)
     image_resized = cv2.resize(image, (nw, nh))
 
     image_paded = np.full(shape=[ih, iw, 3], fill_value=128.0)
@@ -202,7 +205,6 @@ def draw_bbox(image, bboxes, classes=read_class_names(cfg.YOLO.CLASSES), show_la
     return image
 
 
-
 def bboxes_iou(boxes1, boxes2):
 
     boxes1 = np.array(boxes1)
@@ -211,15 +213,16 @@ def bboxes_iou(boxes1, boxes2):
     boxes1_area = (boxes1[..., 2] - boxes1[..., 0]) * (boxes1[..., 3] - boxes1[..., 1])
     boxes2_area = (boxes2[..., 2] - boxes2[..., 0]) * (boxes2[..., 3] - boxes2[..., 1])
 
-    left_up       = np.maximum(boxes1[..., :2], boxes2[..., :2])
-    right_down    = np.minimum(boxes1[..., 2:], boxes2[..., 2:])
+    left_up = np.maximum(boxes1[..., :2], boxes2[..., :2])
+    right_down = np.minimum(boxes1[..., 2:], boxes2[..., 2:])
 
     inter_section = np.maximum(right_down - left_up, 0.0)
-    inter_area    = inter_section[..., 0] * inter_section[..., 1]
-    union_area    = boxes1_area + boxes2_area - inter_area
-    ious          = np.maximum(1.0 * inter_area / union_area, np.finfo(np.float32).eps)
+    inter_area = inter_section[..., 0] * inter_section[..., 1]
+    union_area = boxes1_area + boxes2_area - inter_area
+    ious = np.maximum(1.0 * inter_area / union_area, np.finfo(np.float32).eps)
 
     return ious
+
 
 def bboxes_ciou(boxes1, boxes2):
 
@@ -255,6 +258,7 @@ def bboxes_ciou(boxes1, boxes2):
     ciou_term = d + alpha * ar_loss
 
     return iou - ciou_term
+
 
 def nms(bboxes, iou_threshold, sigma=0.3, method='nms'):
     """
@@ -293,10 +297,13 @@ def nms(bboxes, iou_threshold, sigma=0.3, method='nms'):
 
     return best_bboxes
 
+
 def diounms_sort(bboxes, iou_threshold, sigma=0.3, method='nms', beta_nms=0.6):
     best_bboxes = []
     return best_bboxes
-def postprocess_bbbox(pred_bbox, ANCHORS, STRIDES, XYSCALE=[1,1,1]):
+
+
+def postprocess_bbbox(pred_bbox, ANCHORS, STRIDES, XYSCALE=[1, 1, 1]):
     for i, pred in enumerate(pred_bbox):
         conv_shape = pred.shape
         output_size = conv_shape[1]
@@ -317,19 +324,21 @@ def postprocess_bbbox(pred_bbox, ANCHORS, STRIDES, XYSCALE=[1,1,1]):
     pred_bbox = [tf.reshape(x, (-1, tf.shape(x)[-1])) for x in pred_bbox]
     pred_bbox = tf.concat(pred_bbox, axis=0)
     return pred_bbox
+
+
 def postprocess_boxes(pred_bbox, org_img_shape, input_size, score_threshold):
 
-    valid_scale=[0, np.inf]
+    valid_scale = [0, np.inf]
     pred_bbox = np.array(pred_bbox)
 
     pred_xywh = pred_bbox[:, 0:4]
     pred_conf = pred_bbox[:, 4]
     pred_prob = pred_bbox[:, 5:]
 
-    # # (1) (x, y, w, h) --> (xmin, ymin, xmax, ymax)
+    #  # (1) (x, y, w, h) --> (xmin, ymin, xmax, ymax)
     pred_coor = np.concatenate([pred_xywh[:, :2] - pred_xywh[:, 2:] * 0.5,
                                 pred_xywh[:, :2] + pred_xywh[:, 2:] * 0.5], axis=-1)
-    # # (2) (xmin, ymin, xmax, ymax) -> (xmin_org, ymin_org, xmax_org, ymax_org)
+    #  # (2) (xmin, ymin, xmax, ymax) -> (xmin_org, ymin_org, xmax_org, ymax_org)
     org_h, org_w = org_img_shape
     resize_ratio = min(input_size / org_w, input_size / org_h)
 
@@ -339,17 +348,17 @@ def postprocess_boxes(pred_bbox, org_img_shape, input_size, score_threshold):
     pred_coor[:, 0::2] = 1.0 * (pred_coor[:, 0::2] - dw) / resize_ratio
     pred_coor[:, 1::2] = 1.0 * (pred_coor[:, 1::2] - dh) / resize_ratio
 
-    # # (3) clip some boxes those are out of range
+    #  # (3) clip some boxes those are out of range
     pred_coor = np.concatenate([np.maximum(pred_coor[:, :2], [0, 0]),
                                 np.minimum(pred_coor[:, 2:], [org_w - 1, org_h - 1])], axis=-1)
     invalid_mask = np.logical_or((pred_coor[:, 0] > pred_coor[:, 2]), (pred_coor[:, 1] > pred_coor[:, 3]))
     pred_coor[invalid_mask] = 0
 
-    # # (4) discard some invalid boxes
+    #  # (4) discard some invalid boxes
     bboxes_scale = np.sqrt(np.multiply.reduce(pred_coor[:, 2:4] - pred_coor[:, 0:2], axis=-1))
     scale_mask = np.logical_and((valid_scale[0] < bboxes_scale), (bboxes_scale < valid_scale[1]))
 
-    # # (5) discard some boxes with low scores
+    #  # (5) discard some boxes with low scores
     classes = np.argmax(pred_prob, axis=-1)
     scores = pred_conf * pred_prob[np.arange(len(pred_coor)), classes]
     # scores = pred_prob[np.arange(len(pred_coor)), classes]
@@ -359,14 +368,16 @@ def postprocess_boxes(pred_bbox, org_img_shape, input_size, score_threshold):
 
     return np.concatenate([coors, scores[:, np.newaxis], classes[:, np.newaxis]], axis=-1)
 
+
 def freeze_all(model, frozen=True):
     model.trainable = not frozen
     if isinstance(model, tf.keras.Model):
-        for l in model.layers:
-            freeze_all(l, frozen)
+        for idx in model.layers:
+            freeze_all(idx, frozen)
+
+
 def unfreeze_all(model, frozen=False):
     model.trainable = not frozen
     if isinstance(model, tf.keras.Model):
-        for l in model.layers:
-            unfreeze_all(l, frozen)
-
+        for idx in model.layers:
+            unfreeze_all(idx, frozen)

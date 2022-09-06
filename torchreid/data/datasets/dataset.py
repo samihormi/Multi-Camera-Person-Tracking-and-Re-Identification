@@ -29,7 +29,7 @@ class Dataset(object):
         verbose (bool): show information.
     """
     _junk_pids = [
-    ] # contains useless person IDs, e.g. background, false detections
+    ]  # contains useless person IDs, e.g. background, false detections
 
     def __init__(
         self,
@@ -88,13 +88,13 @@ class Dataset(object):
             camid += self.num_train_cams
             train.append((img_path, pid, camid))
 
-        ###################################
+        # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
         # Things to do beforehand:
         # 1. set verbose=False to avoid unnecessary print
         # 2. set combineall=False because combineall would have been applied
         #    if it was True for a specific dataset, setting it to True will
         #    create new IDs that should have been included
-        ###################################
+        # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
         if isinstance(train[0][0], str):
             return ImageDataset(
                 train,
@@ -211,7 +211,7 @@ class Dataset(object):
             tar = tarfile.open(fpath)
             tar.extractall(path=dataset_dir)
             tar.close()
-        except:
+        except Exception:
             zip_ref = zipfile.ZipFile(fpath, 'r')
             zip_ref.extractall(dataset_dir)
             zip_ref.close()
@@ -237,7 +237,7 @@ class Dataset(object):
         num_gallery_pids, num_gallery_cams = self.parse_data(self.gallery)
 
         msg = '  ----------------------------------------\n' \
-              '  subset   | # ids | # items | # cameras\n' \
+              '  subset   |  # ids |  # items |  # cameras\n' \
               '  ----------------------------------------\n' \
               '  train    | {:5d} | {:7d} | {:9d}\n' \
               '  query    | {:5d} | {:7d} | {:9d}\n' \
@@ -294,7 +294,7 @@ class ImageDataset(Dataset):
 
         print('=> Loaded {}'.format(self.__class__.__name__))
         print('  ----------------------------------------')
-        print('  subset   | # ids | # images | # cameras')
+        print('  subset   |  # ids |  # images |  # cameras')
         print('  ----------------------------------------')
         print(
             '  train    | {:5d} | {:8d} | {:9d}'.format(
@@ -389,7 +389,7 @@ class VideoDataset(Dataset):
             img = read_image(img_path)
             if self.transform is not None:
                 img = self.transform(img)
-            img = img.unsqueeze(0) # img must be torch.Tensor
+            img = img.unsqueeze(0)  # img must be torch.Tensor
             imgs.append(img)
         imgs = torch.cat(imgs, dim=0)
 
@@ -404,7 +404,7 @@ class VideoDataset(Dataset):
 
         print('=> Loaded {}'.format(self.__class__.__name__))
         print('  -------------------------------------------')
-        print('  subset   | # ids | # tracklets | # cameras')
+        print('  subset   |  # ids |  # tracklets |  # cameras')
         print('  -------------------------------------------')
         print(
             '  train    | {:5d} | {:11d} | {:9d}'.format(

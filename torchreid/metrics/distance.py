@@ -20,7 +20,7 @@ def compute_distance_matrix(input1, input2, metric='euclidean'):
        >>> input1 = torch.rand(10, 2048)
        >>> input2 = torch.rand(100, 2048)
        >>> distmat = metrics.compute_distance_matrix(input1, input2)
-       >>> distmat.size() # (10, 100)
+       >>> distmat.size()  # (10, 100)
     """
     # check input
     assert isinstance(input1, torch.Tensor)

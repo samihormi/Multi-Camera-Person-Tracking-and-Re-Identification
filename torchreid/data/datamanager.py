@@ -233,7 +233,7 @@ class ImageDataManager(DataManager):
                     transform=self.transform_tr,
                     k_tfm=k_tfm,
                     mode='train',
-                    combineall=False, # only use the training data
+                    combineall=False,  # only use the training data
                     root=root,
                     split_id=split_id,
                     cuhk03_labeled=cuhk03_labeled,
