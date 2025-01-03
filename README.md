@@ -50,6 +50,8 @@ python convert_y3.py model_data\weights\yolov3.weights model_data\models\yolov3.
 python convert_y4.py model_data\weights\yolov4.weights model_data\models\yolov4.h5
 ```
 
+- Download [RESNET-50](https://download.pytorch.org/models/resnet50-19c8e357.pth) and save it as `model_data/models/model.pth`.
+
 # Pre-trained models (.h5) (If you want to start right away)
 - Download the Keras models for [YOLO_v3](https://drive.google.com/file/d/1a7JI-A920lrdt6OKya-qCXx-5ZUWvkMg/view?usp=sharing) and [YOLO_v4](https://drive.google.com/file/d/1pwFo4aHKPi0ztpL5tEYaXIr8RltYYQeY/view?usp=sharing) and add them to \model_data\models\
 
